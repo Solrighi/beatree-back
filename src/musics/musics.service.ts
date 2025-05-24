@@ -18,15 +18,24 @@ export class MusicsService {
     return this.musicModel.find().exec()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} music`
+  findOne(id: string) {
+    return this.musicModel.findOne({
+      _id: id
+    })
   }
 
-  update(id: number, updateMusicDto: UpdateMusicDto) {
-    return `This action updates a #${id} music`
+  update(id: string, updateMusicDto: UpdateMusicDto) {
+    const existingMusic = this.musicModel.findOneAndUpdate(
+      { _id: id },
+      updateMusicDto,
+      { new: true }
+    )
+    return existingMusic
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} music`
+  remove(ids: string[]) {
+    return this.musicModel.deleteMany({
+      _id: { $in: ids }
+    })
   }
 }
