@@ -27,16 +27,16 @@ export class MusicsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.musicsService.findOne(+id)
+    return this.musicsService.findOne(id)
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateMusicDto: UpdateMusicDto) {
-    return this.musicsService.update(+id, updateMusicDto)
+    return this.musicsService.update(id, updateMusicDto)
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.musicsService.remove(+id)
+  @Delete()
+  remove(@Body() { ids }: { ids: string[] }) {
+    return this.musicsService.remove(ids)
   }
 }
