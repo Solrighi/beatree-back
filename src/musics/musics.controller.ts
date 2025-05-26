@@ -8,15 +8,19 @@ import {
   Delete
 } from '@nestjs/common'
 import { MusicsService } from './musics.service'
-import { CreateMusicDto } from './dto/create-music.dto'
-import { UpdateMusicDto } from './dto/update-music.dto'
+import { CreateMusicDto, CreateMusicSchema } from './dto/create-music.dto'
+import { UpdateMusicDto, UpdateMusicSchema } from './dto/update-music.dto'
+import { ZodValidationPipe } from 'src/zod/ZodValidationPipe'
 
 @Controller('musics')
 export class MusicsController {
   constructor(private readonly musicsService: MusicsService) {}
 
   @Post()
-  create(@Body() createMusicDto: CreateMusicDto) {
+  create(
+    @Body(new ZodValidationPipe(CreateMusicSchema))
+    createMusicDto: CreateMusicDto
+  ) {
     return this.musicsService.create(createMusicDto)
   }
 
@@ -31,7 +35,11 @@ export class MusicsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMusicDto: UpdateMusicDto) {
+  update(
+    @Param('id') id: string,
+    @Body(new ZodValidationPipe(UpdateMusicSchema))
+    updateMusicDto: UpdateMusicDto
+  ) {
     return this.musicsService.update(id, updateMusicDto)
   }
 
