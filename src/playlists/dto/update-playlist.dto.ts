@@ -1,4 +1,6 @@
-import { PartialType } from '@nestjs/mapped-types'
-import { CreatePlaylistDto } from './create-playlist.dto'
+import { z } from 'zod'
+import { CreatePlaylistSchema } from './create-playlist.dto'
 
-export class UpdatePlaylistDto extends PartialType(CreatePlaylistDto) {}
+export const UpdatePlaylistSchema = CreatePlaylistSchema.partial()
+
+export type UpdatePlaylistDto = z.infer<typeof UpdatePlaylistSchema>

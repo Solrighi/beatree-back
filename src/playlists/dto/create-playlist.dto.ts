@@ -1,6 +1,9 @@
-export class CreatePlaylistDto {
-  name: string
-  createdBy: string
-  isPublic: string
-  musicId: string
-}
+import { z } from 'zod'
+
+export const CreatePlaylistSchema = z.object({
+  name: z.string(),
+  createdBy: z.string(),
+  isPublic: z.boolean()
+})
+
+export type CreatePlaylistDto = z.infer<typeof CreatePlaylistSchema>

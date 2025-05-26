@@ -11,7 +11,7 @@ export class Playlist {
   @Prop({ required: true })
   createdBy: string
 
-  @Prop({ required: true })
+  @Prop()
   isPublic: boolean
 
   @Prop({ type: [Types.ObjectId], ref: 'Music' })
