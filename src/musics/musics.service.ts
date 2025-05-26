@@ -10,8 +10,7 @@ export class MusicsService {
   constructor(@InjectModel(Music.name) private musicModel: Model<Music>) {}
 
   create(createMusicDto: CreateMusicDto) {
-    const createdMusic = new this.musicModel(createMusicDto)
-    return createdMusic.save()
+    return this.musicModel.create(createMusicDto)
   }
 
   findAll() {
@@ -19,17 +18,17 @@ export class MusicsService {
   }
 
   findOne(id: string) {
-    return this.musicModel.findOne({
-      _id: id
-    })
+    return this.musicModel
+      .findOne({
+        _id: id
+      })
+      .exec()
   }
 
   update(id: string, updateMusicDto: UpdateMusicDto) {
-    const existingMusic = this.musicModel.findOneAndUpdate(
-      { _id: id },
-      updateMusicDto,
-      { new: true }
-    )
+    const existingMusic = this.musicModel
+      .findOneAndUpdate({ _id: id }, updateMusicDto, { new: true })
+      .exec()
     return existingMusic
   }
 
