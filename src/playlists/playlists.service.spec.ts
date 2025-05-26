@@ -47,7 +47,6 @@ describe('PlaylistsService', () => {
 
   it('should find all playlists', async () => {
     const playlists = [{ _id: '1', name: 'Playlist 1' }]
-    // Mock para find().populate().exec()
     const execMock = jest.fn().mockResolvedValue(playlists)
     const populateMock = jest.fn(() => ({ exec: execMock }))
     mockPlaylistModel.find.mockReturnValue({ populate: populateMock })
@@ -62,7 +61,6 @@ describe('PlaylistsService', () => {
 
   it('should find one playlist by id', async () => {
     const playlist = { _id: '1', name: 'Playlist 1' }
-    // Mock para findOne().populate().exec()
     const execMock = jest.fn().mockResolvedValue(playlist)
     const populateMock = jest.fn(() => ({ exec: execMock }))
     mockPlaylistModel.findOne.mockReturnValue({ populate: populateMock })

@@ -21,7 +21,7 @@ describe('PlaylistsController', () => {
           ...dto,
           musics: [],
           createdBy: dto.createdBy,
-          isPublic: dto.isPublic
+          isPublic: dto.isPublic ?? false
         })
     ),
 
@@ -158,7 +158,6 @@ describe('PlaylistsController', () => {
     const result = await controller.addMusic(id, musicId)
 
     expect(spy).toHaveBeenCalledWith(id, musicId)
-    // IDs dentro do array são ObjectIds, converter para string para comparação
     expect(result?.musics.map((m) => m.toString())).toContain(musicId)
   })
 
